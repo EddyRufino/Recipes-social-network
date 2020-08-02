@@ -25,6 +25,11 @@ class Recipe extends Model
     	return $this->belongsTo(User::class);
     }
 
+    public function category()
+    {
+      return $this->belongsTo(Category::class);
+    }
+
     public static function create(array $attributes = []) {
 
       $attributes['user_id'] = auth()->id();

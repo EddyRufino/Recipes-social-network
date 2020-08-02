@@ -17,7 +17,12 @@ class RecipeController extends Controller
 
     public function index()
     {
-        $recipes = Recipe::latest()
+        // \DB::connection()->enableQueryLog();
+
+        // $recipes = auth()->user()->recipes()->latest()->paginate();
+
+        // Esta consulta no es muy rápida
+        $recipes = Recipe::with('category')->latest()
                 ->where('user_id', auth()->id())
                 ->paginate();
 
@@ -53,7 +58,7 @@ class RecipeController extends Controller
 
     public function show(Recipe $recipe)
     {
-        //
+        return view('recipes.show', compact('recipe'));
     }
 
     public function edit(Recipe $recipe)

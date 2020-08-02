@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         factory(User::class, 5)
         	->create()
         	->each(function (User $user) {
-        		$user->recipes()->createMany(factory(Recipe::class, 20)
+        		$user->recipes()->createMany(factory(Recipe::class, 3)
         				->make()
         				->toArray());
         	});
