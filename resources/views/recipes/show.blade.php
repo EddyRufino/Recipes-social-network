@@ -2,6 +2,24 @@
 
 @section('content')
 	<div class="container">
-		<h1>{{ $recipe->title }}</h1>
+		<div class="d-flex">
+			<img src="{{ asset($recipe->image) }}">
+			{{-- <img src="/storage/{{ $recipe->image }}"> --}}
+			<div class="d-flex flex-column">
+				<h1>{{ $recipe->title }}</h1>
+				<p>{{ $recipe->category->name }}</p>
+				<p>By for {{ $recipe->user->name }}</p>
+			</div>
+		</div>
+
+		<div class="">
+			<h3>Ingredients</h3>
+			<p>{!! $recipe->ingredient !!}</p>
+		</div>
+
+		<div class="">
+			<h3>Praparation</h3>
+			<p>{!! $recipe->preparation !!}</p>
+		</div>
 	</div>
 @endsection

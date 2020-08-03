@@ -10,12 +10,13 @@ use Faker\Generator as Faker;
 
 $factory->define(Recipe::class, function (Faker $faker) {
 	$word = $faker->sentence(8);
+    $fileName = $faker->numberBetween(1, 3) . '.png';
     return [
         'title' => ucfirst($word),
         'slug' => Str::slug($word),
         'ingredient' => $faker->sentence(15),
         'preparation' => $faker->sentence(15),
-        'image' => 'https://i.picsum.photos/id/1/200/200.jpg',
+        'image' => "img/products/{$fileName}",
         'user_id' => User::all()->random()->id,
         'category_id' => Category::all()->random()->id,
     ];

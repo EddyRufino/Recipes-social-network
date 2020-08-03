@@ -20,25 +20,18 @@
 				<div class="list-group">
 				  <div class="list-group-item list-group-item-action flex-column align-items-start ">
 				    <div class="d-flex w-100 justify-content-between">
-				      <h5 class="mb-1">{{ $recipe->title }}</h5>
-				      <small>3 days ago</small>
+				      <a href="{{ route('recipes.show', $recipe) }}" class="mb-1 lead">{{ $recipe->title }}</a>
+				      <small>{{ optional($recipe->created_at)->format('M d') }}</small>
 				    </div>
-				    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+				    <p class="mb-1">{!! $recipe->preparation !!}</p>
 				    <div class="d-flex w-100 justify-content-between">
 				    	<small>{{ $recipe->category->name }}</small>
-					{{-- 	<small id="actions">aa
-							<button type="button" class="close" aria-label="Close">
-							  <span aria-hidden="true">&times;</span>
-							</button>
-						</small> --}}
 						<div class="btn-group dropleft">
 						  <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    {{-- <span class="sr-only">Toggle Dropdown</span> --}}
 						  </button>
 						  <div class="dropdown-menu">
 						    <a class="dropdown-item" href="{{ route('recipes.show' , $recipe) }}">Show</a>
-						    {{-- <a class="dropdown-item" href="{{ route('recipes.edit') }}">Edit</a>
-						    <a class="dropdown-item" href="{{ route('recipes.delete') }}">Delete</a> --}}
 						  </div>
 						</div>
 				    </div>
