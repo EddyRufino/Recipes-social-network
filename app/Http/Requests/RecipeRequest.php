@@ -25,11 +25,13 @@ class RecipeRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:100',
-            'slug' => 'min:5|max:100',
+            'slug' => 'min:5|max:100', // haz que sea único
             'ingredient' => 'required|min:5',
             'preparation' => 'required|min:5',
-            'image' => '',
-            // required|image
+            'image' =>[
+                $this->route('recipe') ? 'nullable' : 'required',
+                'mimes:jpeg,png', // 'image' => jpeg, png, bmp, gif, svg o webp
+            ],
             'user_id' => '',
             'category_id' => 'required',
         ];

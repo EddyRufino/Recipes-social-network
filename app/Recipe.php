@@ -14,11 +14,11 @@ class Recipe extends Model
         return 'slug';
     }
     
-    // public function setTitleAttribute($title)
-    // {
-    //     $this->attributes['title'] = $title;
-    //     $this->attributes['slug'] = Str::slug($title);
-    // }
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = $title;
+        $this->attributes['slug'] = Str::slug($title);
+    }
 
     public function user()
     {
@@ -30,27 +30,4 @@ class Recipe extends Model
       return $this->belongsTo(Category::class);
     }
 
-    public static function create(array $attributes = []) {
-
-      $attributes['user_id'] = auth()->id();
-
-      $recipe = static::query()->create($attributes);
-
-      $slug = Str::slug($attributes['title']);
-
-      if (static::whereSlug($slug)->exists()) {
-
-        $recipe->slug = Str::slug($attributes['title']) . "-{$recipe->id}";
-      } else {
-
-        $recipe->slug = Str::slug($attributes['title']);
-      }
-
-      $recipe->save();
-
-      //$recipe->generateslug();
-
-      return $recipe;
-
-    }
 }

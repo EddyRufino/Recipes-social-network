@@ -45,7 +45,9 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app/public'), // por defecto viene 'root' => storage_path('app') - Yo le agrege "/public" por me salia un mensaje de error cuando guardaba una imagen "recipes/asfasfasdf.jpg"
+            // El mensaj de error erá illuminate\contracts\Filesystem\FileNotFoundException
+            // "recipes/asfasfasdf.jpg"
         ],
 
         'public' => [

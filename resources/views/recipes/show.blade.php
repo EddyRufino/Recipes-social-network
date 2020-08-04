@@ -3,7 +3,13 @@
 @section('content')
 	<div class="container">
 		<div class="d-flex">
-			<img src="{{ asset($recipe->image) }}">
+            @if($recipe->image)
+                <img class="card-img-top"
+                    src="/storage/{{ $recipe->image }}"
+                    alt="{{ $recipe->title }}"
+                >
+            @endif
+			{{-- <img src="{{ asset($recipe->image) }}"> --}}
 			{{-- <img src="/storage/{{ $recipe->image }}"> --}}
 			<div class="d-flex flex-column">
 				<h1>{{ $recipe->title }}</h1>

@@ -31,7 +31,18 @@
 						    {{-- <span class="sr-only">Toggle Dropdown</span> --}}
 						  </button>
 						  <div class="dropdown-menu">
-						    <a class="dropdown-item" href="{{ route('recipes.show' , $recipe) }}">Show</a>
+						    <a class="dropdown-item" href="{{ route('recipes.show' , $recipe) }}"
+						    >
+						    	Show
+							</a>
+						    <a class="dropdown-item" href="{{ route('recipes.edit' , $recipe) }}"
+						    >
+						    	Edit
+							</a>
+						    <a class="dropdown-item" href="{{ route('recipes.destroy' , $recipe) }}"
+						    >
+						    	Delete
+							</a>
 						  </div>
 						</div>
 				    </div>

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Recipe;
 use App\Category;
 use Illuminate\Http\Request;
+use App\Events\RecipeSaved;
 use App\Http\Requests\RecipeRequest;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -37,23 +39,17 @@ class RecipeController extends Controller
 
     public function store(RecipeRequest $request)
     {
-        $data = $request->validated();
+        $recipe = new Recipe( $request->validated() );
 
-        $image = $request['image']->store('recipes', 'public');
+        $recipe->image = $request->file('image')->store('recipes');
 
-        $imageFit = Image::make(public_path("storage/{$image}"))->fit(1000, 550);
-        $imageFit->save();
+        $recipe->user_id = auth()->id();
 
-        Recipe::create([
-            'title' => $data['title'],
-            'ingredient' => $data['ingredient'],
-            'preparation' => $data['preparation'],
-            'image' => $image,
-            'user_id' => auth()->id(),
-            'category_id' => $data['category_id']
-        ]);
+        $recipe->save();
 
-        return back();
+        RecipeSaved::dispatch($recipe);
+
+        return redirect()->route('recipes.index');
     }
 
     public function show(Recipe $recipe)
@@ -63,12 +59,28 @@ class RecipeController extends Controller
 
     public function edit(Recipe $recipe)
     {
-        //
+        $categories = Category::pluck('name', 'id');
+        return view('recipes.edit', compact('recipe', 'categories'));
     }
 
-    public function update(Request $request, Recipe $recipe)
+    public function update(RecipeRequest $request, Recipe $recipe)
     {
-        //
+
+        if ($request->hasFile('image')) {
+            Storage::delete($recipe->image);
+
+            $recipe->fill( $request->validated() );
+
+            $recipe->image = $request->file('image')->store('recipes');
+
+            $recipe->save();
+
+            RecipeSaved::dispatch($recipe);
+        } else {
+            $recipe->update( array_filter($request->validated()) );
+        }
+
+        return redirect()->route('recipes.index');
     }
 
     public function destroy(Recipe $recipe)
