@@ -39,10 +39,10 @@
 						    >
 						    	Edit
 							</a>
-						    <a class="dropdown-item" href="{{ route('recipes.destroy' , $recipe) }}"
-						    >
-						    	Delete
-							</a>
+
+							<delete-recipe recipe-id="{{ $recipe->slug }}">
+							</delete-recipe>
+
 						  </div>
 						</div>
 				    </div>

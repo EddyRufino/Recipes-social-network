@@ -65,6 +65,7 @@ class RecipeController extends Controller
 
     public function update(RecipeRequest $request, Recipe $recipe)
     {
+        $this->authorize('update', $recipe);
 
         if ($request->hasFile('image')) {
             Storage::delete($recipe->image);
@@ -85,7 +86,11 @@ class RecipeController extends Controller
 
     public function destroy(Recipe $recipe)
     {
-        //
+        $this->authorize('delete', $recipe);
+
+        $recipe->delete();
+
+        return redirect()->route('recipes.index'); 
     }
 }
 
