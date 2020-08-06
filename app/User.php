@@ -11,6 +11,19 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
+     * The "booted" method of the model.
+     * También puedes usar eventos y listener para no usar esto.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->perfil()->create();
+        });
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -40,5 +53,10 @@ class User extends Authenticatable
     public function recipes()
     {
         return $this->hasMany(Recipe::class);
+    }
+
+    public function perfil()
+    {
+        return $this->hasOne(Perfil::class);
     }
 }
