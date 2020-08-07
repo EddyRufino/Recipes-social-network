@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         	->create()
         	->each(function (User $user) {
 
-                $user->perfil()->save(factory(Perfil::class)->make());
+                // $user->perfil()->save(factory(Perfil::class)->make());
 
         		$user->recipes()->createMany(factory(Recipe::class, 3)
         				->make()

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -19,7 +20,10 @@ class User extends Authenticatable
     protected static function booted()
     {
         static::created(function ($user) {
-            $user->perfil()->create();
+            $name = $user->name;
+            $user->perfil()->create([
+                'slug' => Str::slug($name)
+            ]);
         });
     }
 

@@ -3,81 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Perfil;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\PerfilRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PerfilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Perfil  $perfil
-     * @return \Illuminate\Http\Response
-     */
     public function show(Perfil $perfil)
     {
-        //
+        return view('perfils.show', compact('perfil'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Perfil  $perfil
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Perfil $perfil)
     {
-        //
+        return view('perfils.edit', compact('perfil'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Perfil  $perfil
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Perfil $perfil)
+    public function update(PerfilRequest $request, Perfil $perfil)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+
+            Storage::delete($perfil->image);
+            $ruta_image = $request->file('image')->store('users');
+            $array_image = ['image' => $ruta_image];
+            
+        }
+
+        // Guarda en la tabla USERS
+        auth()->user()->update([
+            'name' => $data['name'],
+            'url' => $data['url'],
+        ]);
+        // auth()->user()->name = $data['name'];
+        // auth()->user()->url = $data['url'];
+        // auth()->user()->save();
+
+        // Elimina los datos de "name", "url"
+        unset($data['url']);
+
+        // ARRAY_MERGE recibe arrays, por eso pongo esto:
+        $data = [
+            'slug' => Str::slug($data['name']),
+            'biography' => $data['biography'],
+        ];
+
+        auth()->user()->perfil()->update(array_merge(
+            $data,
+            $array_image ?? []
+        ));
+
+        // dd($data);
+        return redirect()->route('recipes.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Perfil  $perfil
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Perfil $perfil)
     {
         //
