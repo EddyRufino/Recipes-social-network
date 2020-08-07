@@ -23,7 +23,7 @@ class RecipeController extends Controller
 
         // $recipes = auth()->user()->recipes()->latest()->paginate();
 
-        // Esta consulta no es muy rápida
+        // Esta consulta no es muy rápida ???
         $recipes = Recipe::with('category')->latest()
                 ->where('user_id', auth()->id())
                 ->paginate();
@@ -59,7 +59,10 @@ class RecipeController extends Controller
 
     public function edit(Recipe $recipe)
     {
+        $this->authorize('view', $recipe);
+
         $categories = Category::pluck('name', 'id');
+
         return view('recipes.edit', compact('recipe', 'categories'));
     }
 
