@@ -30,4 +30,8 @@ class Recipe extends Model
       return $this->belongsTo(Category::class);
     }
 
+    public function Like()
+    {
+        return $this->belongsToMany(User::class, 'likes_recipe');
+    }
 }
