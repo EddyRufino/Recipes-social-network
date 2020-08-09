@@ -10,13 +10,13 @@
   background-size: 2900%;
 }
 
-
 .like-active {
   animation-name: animate;
   animation-duration: .8s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
+
 .like-active {
   animation-timing-function: steps(28);
 }
@@ -26,3 +26,22 @@
   50%  { background-position: right; }
   100% { background-position: right; }
 }
+
+.not-like-active {
+  display: inline-block !important;
+  Cursor: pointer !important;
+  width: 80px !important;
+  height: 80px !important;
+  background: url('https://i.ibb.co/vw78mf3/heart.png') no-repeat 0% 50% !important;
+  background-size: 2900% !important; 
+}
+
+// .not-like-active {
+//   animation-name: animate;
+//   animation-duration: .8s;
+//   animation-iteration-count: 1;
+//   animation-fill-mode: forwards;
+// }
+// .not-like-active {
+//   animation-timing-function: steps(28);
+// }

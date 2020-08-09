@@ -27,7 +27,11 @@
 			<h3>Praparation</h3>
 			<p>{!! $recipe->preparation !!}</p>
 		</div>
-
-		<like-button recipe-id={{ $recipe->slug }}></like-button>
+		
+		<like-button
+			recipe-id="{{ $recipe->slug }}"
+			like="{{ $like }}"
+		>
+		</like-button>
 	</div>
 @endsection

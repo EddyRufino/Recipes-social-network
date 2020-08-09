@@ -10993,3 +10993,12 @@ trix-editor {
   }
 }
 
+.not-like-active {
+  display: inline-block !important;
+  Cursor: pointer !important;
+  width: 80px !important;
+  height: 80px !important;
+  background: url("https://i.ibb.co/vw78mf3/heart.png") no-repeat 0% 50% !important;
+  background-size: 2900% !important;
+}
+
