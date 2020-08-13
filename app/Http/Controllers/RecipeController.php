@@ -28,7 +28,11 @@ class RecipeController extends Controller
                 ->where('user_id', auth()->id())
                 ->paginate();
 
-        return view('recipes.index', compact('recipes'));
+        $recipeLike = auth()->user();
+
+        // dd($recipeLike->iLike);
+
+        return view('recipes.index', compact('recipes', 'recipeLike'));
     }
 
     public function create()
@@ -58,9 +62,9 @@ class RecipeController extends Controller
         // Contains -> Si le pasas un ID revisa si le existe.
         $like = auth()->user() ? auth()->user()->iLike->contains($recipe->id) : false;
 
-        // dd($like);
+        $likes = $recipe->like->count();
 
-        return view('recipes.show', compact('recipe', 'like'));
+        return view('recipes.show', compact('recipe', 'like', 'likes'));
     }
 
     public function edit(Recipe $recipe)

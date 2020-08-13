@@ -31,7 +31,9 @@
 		<like-button
 			recipe-id="{{ $recipe->slug }}"
 			like="{{ $like }}"
+			likes="{{ $likes }}"
 		>
 		</like-button>
+
 	</div>
 @endsection
