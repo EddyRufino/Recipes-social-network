@@ -79,7 +79,7 @@
 	@foreach ($recipeLike->iLike as $like)
 		<div class="card" style="width: 18rem;">
 		  <div class="card-body">
-		    <h5 class="card-title">C{{ $like->title }}</h5>
+		    <h5 class="card-title">{{ $like->title }}</h5>
 		    <p class="card-text">{!! Illuminate\Support\str::limit($like->preparation, 40) !!}</p>
 		    <a href="{{ route('recipes.show' , $recipe) }}" class="card-link">Ver más</a>
 		  </div>

@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'InicioController@index')->name('inicio.index');
 
 Route::resource('recipes', 'RecipeController');
 Route::resource('perfils', 'PerfilController')->except(['index', 'create', 'store']);
