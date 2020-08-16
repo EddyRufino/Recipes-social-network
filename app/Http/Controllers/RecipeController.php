@@ -105,5 +105,15 @@ class RecipeController extends Controller
 
         return redirect()->route('recipes.index'); 
     }
+
+    public function search(Request $request)
+    {
+        $buscar = $request->get('buscar');
+
+        $recipes = Recipe::where('title', 'like', '%'. $buscar.'%')->paginate(1);
+        $recipes->appends(['buscar' => $buscar]);
+        
+        return view('searchs.searchRecipe', compact('recipes'));
+    }
 }
 

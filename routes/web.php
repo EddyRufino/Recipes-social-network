@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'InicioController@index')->name('inicio.index');
 
 Route::resource('recipes', 'RecipeController');
+Route::get('/buscar', 'RecipeController@search')->name('recipes.search');
 
 // Ten en cuenta que lo que mandas dentro de name/{name} tiene que ser igual(nombre) al que envias (En este caso desde show)
 Route::get('categorias/{category}', 'CategoryController@show')->name('categories.show');
